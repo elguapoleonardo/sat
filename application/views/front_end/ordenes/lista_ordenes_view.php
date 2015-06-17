@@ -18,7 +18,7 @@
 					<th >Solucion</th>
 					<th>Estado</th>
 					<th class="hidden-phone">Observaciones</th>
-					<th>Herrmientas</th>
+					<th><i class="icon-wrench"></i>Controles</th>
 				</tr>
 			</thead>
 
@@ -28,7 +28,7 @@
 				foreach ($lista as $item)
 				{
 					?>
-					<tr>
+					<tr tabindex="2015<?PHP echo $item['id_orden'];?>">
 						<td class="center">
 							<label>
 								<?php $contador++; echo $contador; ?>
@@ -45,9 +45,9 @@
 						<td class="hidden-phone"><span class="label label-info"><?php echo $item['estado_orden']; ?></span></td>
 						<td><?php echo $item['observaciones']; ?></td>
 
-						<td>
+						<td class="td-actions center controles_<?php echo $item['id_orden'];?>">
 							<div class="hidden-phone visible-desktop btn-group">
-								<button class="btn btn-mini btn-success">
+								<button class="btn btn-mini btn-success" onclick="cambiar_msjalerta(2); modificar_model(<?php echo $item['id_orden'];?>)">
 									<i class="icon-pencil bigger-140"></i>
 								</button>
 
@@ -142,7 +142,7 @@
 				},
 			
 			//"aoColumns": [{ "bSortable": false, "aTargets": [0]}, null, null, null, { "bSortable": false }],
-			"aoColumnDefs": [{ "bSortable": false, "aTargets": [ 0,7] }],"aaSorting": [[ 0, 'asc' ]]
+			"aoColumnDefs": [{ "bSortable": false, "aTargets": [ 0,10] }],"aaSorting": [[ 0, 'asc' ]]
 		});	
 
 

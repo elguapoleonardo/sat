@@ -6,8 +6,8 @@ var msjalerta = "";
 function agregar_orden()
 {
 
-
-	$.ajax({ 
+	$.ajax
+	({ 
 		url      : 'ordenes/agregar_ordenes', 
 		type     : 'post', 
 		dataType : 'json', 
@@ -16,32 +16,33 @@ function agregar_orden()
 			alerta( img + ' Espere...' ); 
 
 		}, 
-		success : function(data){ 
-
+		success : function(data)
+		{ 
 			alerta(); 
-			if( data.type==false){ 
+			if( data.type==false)
+			{ 
 				alerta( data.message, false ); 
-			}else{ 
+			}
+			else
+			{ 
 				alerta(img + data.message, true ); 
 				setTimeout( function()
 					{
-						alerta(); 
-						/*
 						limpiar('agregar');
 						$('#agregar_orden').modal('toggle');
 						setTimeout( function()
 						{
-						location.reload();
+							location.reload();
 						}, 20);
-						*/
 					}, 2000 ); 
 			} 
 		}, 
-		error : function(){ 
-			alert('Prueba Error');
+		error : function()
+		{ 
+			alert('Error de controlador o modelo');
 			alerta(); dialogo( 'Error', 'Error al enviar los datos.' ); 
 		} 
-		});
+	});
 }
 
 
@@ -71,6 +72,7 @@ function modificar_orden()
 		}, 
 		error : function()
 		{ 
+			alert('Error de controlador o modelo');
 
 			alerta(img + ' Datos actualizados exitosamente', true ); 
 			setTimeout( function()
@@ -135,6 +137,37 @@ function eliminar_orden()
 
 function modificar_model(codigo)
 {
+	$.ajax
+	({ 
+		url      : 'usuarios/traer_usuario	', 
+		type     : 'post', 
+		dataType : 'json', 
+		data     : { codigo : codigo}, 
+		beforeSend : function()
+		{ 
+			alerta( img + ' Espere...' ); 
+		}, 
+		success : function(data){ 
+				alert("ok");
+			alerta(); 
+			if( data.type==false ){ 
+				dialogo('Notificación', data.message); 
+			}else{ 
+				//var v=data.orden; 
+				$('#numero_orden2').val(data.orden); 
+				/*$('#nombre').val( v.nombre ); 
+				$('#genero option[value="'+v.genero+'"]').attr('selected', true); 
+				load_form( accion ); 
+				*/
+			} 
+		}, 
+		error : function(data){ 
+			alert('error');
+			var v=data.orden[0]; 
+				$('#numero_orden2').val( v.numero_orden );
+			alerta(); dialogo( 'Error', 'Error en la función usuarios/traer_usuario.' ); 
+		} 
+	}); 
 	var nombre = ($('.nombre_orden_' + codigo ).text());
 	var descripcion = ($('.descripcion_orden_' + codigo ).text());
 	var id = ($('.id_orden_' + codigo ).text());

@@ -37,16 +37,45 @@ class Ordenes extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output( json_encode( $data ) ); 
 	}
 
-	function detalle_ordenes($id_solicitud)
+	function detalle_ordenes()
 	{
+		/*
 		$data=array(); 
-		$id_limpio= $this->security->xss_clean($id_solicitud);
-		$data['detalle']=$this->articulos->detalle_articulo($id_limpio);
-		//para el titulo llamamos los data obtenidos con detalle y luego agregamos el campo de la tabla a mostrar
-		//eso hace para utilizar data del modelo en el controlador
-		$data['titulo']="ordenes";
-		$data['contenido']="lista_ordenes";
-		$this->load->view('plantilla/plantilla',$data);
+		$id_limpio= $this->security->xss_clean($id_orden);
+		$data['detalle']=$this->ordenes->detalle_orden($id_limpio);
+		$info_obt=$this->ordenes->agregar_ordenes($info);	
+			if( $info_obt==false )
+			{ 
+				$data['type']   =false; 
+				$data['message']='Los datos no se extrajeron correctamente.'; 
+			}
+			else
+			{ 
+				$data['type']   =true; 
+				$data['message']='Se extrajeron correctamente.'; 
+				$data['id_valor']= $info_obt;
+			}  
+		$this->output->set_content_type('application/json')->set_output( json_encode( $data ) );
+		*/
+		/*
+		$data=array(); 
+		$id_orden=(int)$this->input->post('codigo'); 
+		if( $id_orden==0 ){ 
+			$data['type']   =false; 
+			$data['message']='El parámetro id_orden falló.'; 
+		}else{ 
+			$data['orden']=$this->ordenes->traer_orden_id( $id_orden ); 
+			if( $data['orden']==false ){ 
+				$data['type']   =false; 
+				$data['message']='No se encontró la orden.'; 
+			}else{ 
+				$data['type']=true; 
+			} 
+			*/
+			$data['orden']="1";
+			$data['type']=true; 
+			$this->output->set_content_type('application/json')->set_output( json_encode( $data ) ); 
+		//} 
 	}
 
 	public function reporte()
@@ -92,10 +121,7 @@ class Ordenes extends CI_Controller
 			$info['fecha_finalizacion'] = $this->input->post('fecha_finalizacion');
 			$info['observaciones'] = $this->input->post('observaciones');
 			
-			$info_obt=$this->ordenes->agregar_ordenes($info);
-			$data['type']   =true; 
-			$data['message']='Se guardo exitosamente.'; 
-			/*
+			$info_obt=$this->ordenes->agregar_ordenes($info);	
 			if( $info_obt==false )
 			{ 
 				$data['type']   =false; 
@@ -107,7 +133,6 @@ class Ordenes extends CI_Controller
 				$data['message']='Se guardo exitosamente.'; 
 				$data['id_valor']= $info_obt;
 			} 
-			*/
 		} 
 		$this->output->set_content_type('application/json')->set_output( json_encode( $data ) );
  	}

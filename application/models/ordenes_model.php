@@ -16,9 +16,9 @@ class Ordenes_model extends CI_Model
 
 	}
 
-	function detalle_ordenes_id($id_rol)
+	function detalle_ordenes_id($id_orden)
 	{
-		$this->db->where('id_orden', $id_rol); 
+		$this->db->where('id_orden', $id_orden); 
 		$consulta = $this->db->get('ordenes');
 		//return $consulta->row();
 		return($consulta->num_rows()>0)?$consulta->result_array():false; 
